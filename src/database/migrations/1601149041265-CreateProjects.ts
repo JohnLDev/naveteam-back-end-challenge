@@ -7,6 +7,13 @@ export class CreateProjects1601149041265 implements MigrationInterface {
         name: 'projects',
         columns: [
           {
+            name: 'id',
+            type: 'uuid',
+            isPrimary: true,
+            generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
+          },
+          {
             name: 'name',
             type: 'varchar',
           },
