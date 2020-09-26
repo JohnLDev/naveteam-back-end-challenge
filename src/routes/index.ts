@@ -1,9 +1,11 @@
 import { Router } from 'express'
+import naversRouter from './navers.routes'
+import projectsRouter from './projects.routes'
 
 const routes = Router()
 
-routes.get('/', (request, response) => {
-  return response.json({ Message: 'Hello World' })
-})
+routes.use('/authentication', naversRouter)
+routes.use('/navers', naversRouter)
+routes.use('/projects', projectsRouter)
 
 export default routes

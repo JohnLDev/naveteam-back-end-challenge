@@ -6,7 +6,6 @@ import './database'
 import AppError from './errors/AppError'
 
 import Dotenv from 'dotenv'
-
 const dotenv = Dotenv
 
 dotenv.config()
