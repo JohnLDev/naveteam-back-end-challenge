@@ -9,11 +9,11 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm'
-import { Project } from './Projects'
-import { User } from './User'
+import Project from './Projects'
+import User from './User'
 
 @Entity('navers')
-export class Naver {
+class Naver {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
@@ -44,3 +44,4 @@ export class Naver {
   @UpdateDateColumn()
   updated_at: Date
 }
+export default Naver

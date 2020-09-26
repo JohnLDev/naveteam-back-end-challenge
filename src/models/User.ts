@@ -5,15 +5,17 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm'
+import { IsEmail } from 'class-validator'
 
 @Entity('users')
-export class User {
+class User {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Column({ nullable: true })
   name: string
 
+  @IsEmail()
   @Column()
   email: string
 
@@ -26,3 +28,5 @@ export class User {
   @UpdateDateColumn()
   updated_at: Date
 }
+
+export default User
