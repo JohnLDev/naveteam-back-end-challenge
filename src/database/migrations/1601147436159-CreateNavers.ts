@@ -30,6 +30,10 @@ export class CreateNavers1601147436159 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'user_id',
+            type: 'uuid',
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
