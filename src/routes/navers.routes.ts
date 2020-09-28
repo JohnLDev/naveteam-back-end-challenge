@@ -1,15 +1,22 @@
 import { Router } from 'express'
-import { getRepository } from 'typeorm'
+
 import ensureAuthenticated from '../middlewares/ensureaAuthenticated'
-import Naver from '../models/Naver'
+
 import CreateNaverService from '../services/CreateNaverService'
+import FilterNaverService from '../services/FilterNaverService'
 
 const naversRouter = Router()
 naversRouter.use(ensureAuthenticated)
 
 naversRouter.get('/index', async (request, response) => {
-  const naver = await getRepository(Naver).find({ relations: ['projects'] })
-  return response.send(naver)
+  const { name, admission_date, job_role } = request.query as never
+  const filterNaverService = new FilterNaverService()
+  const navers = await filterNaverService.execute({
+    name,
+    admission_date,
+    job_role,
+  })
+  return response.send(navers)
 })
 
 naversRouter.post('/store', async (request, response) => {
