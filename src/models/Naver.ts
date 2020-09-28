@@ -30,9 +30,11 @@ class Naver {
   job_role: string
 
   @Column()
+  user_id: string
+
   @ManyToOne(() => User, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
   @JoinColumn({ name: 'user_id' })
-  user_id: User
+  user: User
 
   @ManyToMany(() => Project, Project => Project.navers)
   @JoinTable()

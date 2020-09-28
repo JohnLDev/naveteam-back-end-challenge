@@ -14,6 +14,11 @@ class CreateUserService {
   public async execute({ name, email, password }: Request): Promise<User> {
     const usersRepository = getRepository(User)
 
+    if (!email || !password) {
+      throw new AppError(
+        'Please insert email and password to create a new user.',
+      )
+    }
     const checkUserExist = await usersRepository.findOne({
       where: { email: email },
     })
@@ -33,7 +38,6 @@ class CreateUserService {
       throw new AppError('Email adress is invalid')
     }
     await usersRepository.save(user)
-    user.password = 'hided'
     return user
   }
 }

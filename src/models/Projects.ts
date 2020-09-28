@@ -20,9 +20,11 @@ class Project {
   name: string
 
   @Column()
+  user_id: string
+
   @ManyToOne(() => User, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
   @JoinColumn({ name: 'user_id' })
-  user_id: User
+  user: User
 
   @ManyToMany(() => Naver, navers => navers.projects)
   navers: Naver[]

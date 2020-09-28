@@ -19,11 +19,11 @@ export class CreateNavers1601147436159 implements MigrationInterface {
           },
           {
             name: 'birthdate',
-            type: 'timestamp without time zone',
+            type: 'date',
           },
           {
             name: 'admission_date',
-            type: 'timestamp without time zone',
+            type: 'date',
           },
           {
             name: 'job_role',
