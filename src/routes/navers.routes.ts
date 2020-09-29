@@ -2,6 +2,7 @@ import { Router } from 'express'
 
 import ensureAuthenticated from '../middlewares/ensureaAuthenticated'
 import CreateNaverService from '../services/CreateNaverService'
+import DeleteNaverService from '../services/DeleteNaverService'
 import FilterNaverService from '../services/IndexNaverService'
 import ShowNaverService from '../services/ShowNaverService'
 
@@ -48,8 +49,10 @@ naversRouter.post('/store', async (request, response) => {
 })
 
 naversRouter.delete('/delete/:id', async (request, response) => {
-  const id = request.query
-
-  return response.status(200).json(id)
+  const { id } = request.params
+  const user_id = request.user.id
+  const deleteNaverService = new DeleteNaverService()
+  await deleteNaverService.execute(id, user_id)
+  return response.status(200).json({ message: 'Naver Deleted' })
 })
 export default naversRouter
