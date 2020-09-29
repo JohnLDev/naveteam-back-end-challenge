@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import ensureAuthenticated from '../middlewares/ensureaAuthenticated'
 import CreateProjectService from '../services/CreateProjectService'
+import DeleteProjectService from '../services/DeleteProjectService'
 import IndexProjectService from '../services/IndexProjecService'
 import ShowProjectService from '../services/ShowProjectService'
 import UpdateProjectService from '../services/UpdateProjectService'
@@ -50,6 +51,15 @@ projectsRouter.put('/update/:id', async (request, response) => {
   })
 
   return response.status(200).json(project)
+})
+
+projectsRouter.delete('/delete/:id', async (request, response) => {
+  const user_id = request.user.id
+  const { id } = request.params
+
+  const deleteProjectService = new DeleteProjectService()
+  await deleteProjectService.execute({ id, user_id })
+  return response.status(200).json({ message: 'Project Deleted' })
 })
 
 export default projectsRouter

@@ -3,8 +3,12 @@ import { validate } from 'uuid'
 import AppError from '../errors/AppError'
 import NaverRepository from '../repositories/NaverRepository'
 
+interface Request {
+  id: string
+  user_id: string
+}
 class DeleteNaverService {
-  public async execute(id: string, user_id: string): Promise<void> {
+  public async execute({ id, user_id }: Request): Promise<void> {
     const naverRepository = getCustomRepository(NaverRepository)
     const isUuid = validate(id)
 

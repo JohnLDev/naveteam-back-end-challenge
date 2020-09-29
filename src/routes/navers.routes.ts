@@ -69,7 +69,7 @@ naversRouter.delete('/delete/:id', async (request, response) => {
   const { id } = request.params
   const user_id = request.user.id
   const deleteNaverService = new DeleteNaverService()
-  await deleteNaverService.execute(id, user_id)
+  await deleteNaverService.execute({ id, user_id })
   return response.status(200).json({ message: 'Naver Deleted' })
 })
 export default naversRouter
