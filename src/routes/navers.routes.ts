@@ -5,6 +5,7 @@ import CreateNaverService from '../services/CreateNaverService'
 import DeleteNaverService from '../services/DeleteNaverService'
 import FilterNaverService from '../services/IndexNaverService'
 import ShowNaverService from '../services/ShowNaverService'
+import UpdateNaverService from '../services/UpdateNaverService'
 
 const naversRouter = Router()
 naversRouter.use(ensureAuthenticated)
@@ -46,6 +47,22 @@ naversRouter.post('/store', async (request, response) => {
     projects,
   })
   return response.status(201).json(naver)
+})
+naversRouter.put('/update/:id', async (request, response) => {
+  const { id } = request.params
+  const user_id = request.user.id
+  const { name, birthdate, admission_date, job_role, projects } = request.body
+  const updateNaverService = new UpdateNaverService()
+  const naver = await updateNaverService.execute({
+    id,
+    user_id,
+    name,
+    birthdate,
+    admission_date,
+    job_role,
+    projects,
+  })
+  return response.status(200).json(naver)
 })
 
 naversRouter.delete('/delete/:id', async (request, response) => {
