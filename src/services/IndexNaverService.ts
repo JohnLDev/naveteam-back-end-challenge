@@ -3,6 +3,7 @@ import { getRepository } from 'typeorm'
 import AppError from '../errors/AppError'
 import { parseISO, formatISO } from 'date-fns'
 interface Reequest {
+  id: string
   name: string
   admission_date: Date | string
   job_role: string
@@ -10,12 +11,13 @@ interface Reequest {
 
 class FilterNaverService {
   public async execute({
+    id,
     name,
     admission_date,
     job_role,
   }: Reequest): Promise<Naver[]> {
     const naverRepository = getRepository(Naver)
-    let navers = await naverRepository.find()
+    let navers = await naverRepository.find({ where: { user_id: id } })
     if (name !== undefined) {
       navers = navers.filter(naver => naver.name.includes(name))
     }

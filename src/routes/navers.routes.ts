@@ -10,18 +10,21 @@ naversRouter.use(ensureAuthenticated)
 
 naversRouter.get('/show/:id', async (request, response) => {
   const { id } = request.params as never
+  const user_id = request.user.id
 
   const showNaverService = new ShowNaverService()
-  const naver = await showNaverService.execute(id)
+  const naver = await showNaverService.execute(id, user_id)
 
   return response.status(200).json(naver)
 })
 
 naversRouter.get('/index', async (request, response) => {
   const { name, admission_date, job_role } = request.query as never
+  const { id } = request.user
   const filterNaverService = new FilterNaverService()
 
   const navers = await filterNaverService.execute({
+    id,
     name,
     admission_date,
     job_role,
@@ -42,5 +45,11 @@ naversRouter.post('/store', async (request, response) => {
     projects,
   })
   return response.status(201).json(naver)
+})
+
+naversRouter.delete('/delete/:id', async (request, response) => {
+  const id = request.query
+
+  return response.status(200).json(id)
 })
 export default naversRouter
