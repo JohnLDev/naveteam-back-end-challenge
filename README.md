@@ -32,6 +32,8 @@ o retorno será o nome do container caso o comando tenha sucesso;
 ## ER Dirgram
 ![ER Diagram](https://i.ibb.co/Y8vwG36/Screenshot-1.png)
 
-### Signup
+## Authentication
 
-``
+### Signup
+URL:
+`/authentication/signup`

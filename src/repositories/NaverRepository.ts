@@ -14,6 +14,14 @@ class NaverRepository extends Repository<Naver> {
     return findNaver
   }
 
+  public async findByUser(user_id: string): Promise<Naver[]> {
+    const findNaver = await this.find({
+      where: { user_id: user_id },
+    })
+
+    return findNaver
+  }
+
   public async showOneById(
     id: string,
     user_id: string,

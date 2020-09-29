@@ -1,9 +1,10 @@
 import Naver from '../models/Naver'
-import { getRepository } from 'typeorm'
+import { getCustomRepository } from 'typeorm'
 import AppError from '../errors/AppError'
-import { parseISO, formatISO } from 'date-fns'
-interface Reequest {
-  id: string
+import NaverRepository from '../repositories/NaverRepository'
+
+interface Request {
+  user_id: string
   name: string
   admission_date: Date | string
   job_role: string
@@ -11,21 +12,27 @@ interface Reequest {
 
 class FilterNaverService {
   public async execute({
-    id,
+    user_id,
     name,
     admission_date,
     job_role,
-  }: Reequest): Promise<Naver[]> {
-    const naverRepository = getRepository(Naver)
-    let navers = await naverRepository.find({ where: { user_id: id } })
+  }: Request): Promise<Naver[]> {
+    function convertData(data: Date) {
+      const date = new Date(data)
+      const mnth = ('0' + (date.getMonth() + 1)).slice(-2)
+      const day = ('0' + (date.getDate() + 1)).slice(-2)
+
+      return [date.getFullYear(), mnth, day].join('-')
+    }
+
+    const naverRepository = getCustomRepository(NaverRepository)
+    let navers = await naverRepository.findByUser(user_id)
     if (name !== undefined) {
       navers = navers.filter(naver => naver.name.includes(name))
     }
     if (admission_date !== undefined) {
-      const date = admission_date + 'T03:00:00.000Z'
-      const formatDate = formatISO(parseISO(date))
       navers = navers.filter(
-        naver => formatISO(naver.admission_date) === formatDate,
+        naver => convertData(naver.admission_date) === admission_date,
       )
     }
     if (job_role !== undefined) {

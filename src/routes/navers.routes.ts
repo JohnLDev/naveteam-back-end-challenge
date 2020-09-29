@@ -22,11 +22,11 @@ naversRouter.get('/show/:id', async (request, response) => {
 
 naversRouter.get('/index', async (request, response) => {
   const { name, admission_date, job_role } = request.query as never
-  const { id } = request.user
+  const user_id = request.user.id
   const filterNaverService = new FilterNaverService()
 
   const navers = await filterNaverService.execute({
-    id,
+    user_id,
     name,
     admission_date,
     job_role,
