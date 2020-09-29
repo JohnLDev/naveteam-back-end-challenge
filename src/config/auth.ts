@@ -1,6 +1,9 @@
+import Dotenv from 'dotenv'
+Dotenv.config()
+
 export default {
   jwt: {
-    secret: '98efdeb59455c8cb5351cf81fce83e6f',
+    secret: process.env.JWT_SECRET,
     expiresIn: '2h',
   },
 }
