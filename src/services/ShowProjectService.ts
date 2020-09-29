@@ -1,6 +1,8 @@
-import { getRepository } from 'typeorm'
+import { getCustomRepository } from 'typeorm'
+import { validate } from 'uuid'
 import AppError from '../errors/AppError'
 import Project from '../models/Projects'
+import ProjectRepository from '../repositories/ProjectRepository'
 
 interface Request {
   id: string
@@ -9,11 +11,13 @@ interface Request {
 
 class ShowProjectService {
   public async execute({ id, user_id }: Request): Promise<Project> {
-    const projectRepository = getRepository(Project)
-    const project = await projectRepository.findOne({
-      where: { id: id, user_id: user_id },
-      relations: ['navers'],
-    })
+    const projectRepository = getCustomRepository(ProjectRepository)
+    const isUuid = validate(id)
+
+    if (!isUuid) {
+      throw new AppError('Please insert a valid indentifier(uuid)')
+    }
+    const project = await projectRepository.showOneById(id, user_id)
     if (!project) {
       throw new AppError('Project not found', 404)
     }

@@ -10,6 +10,28 @@ class ProjectRepository extends Repository<Project> {
 
     return findProject
   }
+
+  public async findOneById(
+    id: string,
+    user_id: string,
+  ): Promise<Project | undefined> {
+    const findProject = await this.findOne({
+      where: { id: id, user_id: user_id },
+    })
+    return findProject
+  }
+
+  public async showOneById(
+    id: string,
+    user_id: string,
+  ): Promise<Project | undefined> {
+    const findProject = await this.findOne({
+      where: { id: id, user_id: user_id },
+      relations: ['navers'],
+    })
+
+    return findProject
+  }
 }
 
 export default ProjectRepository

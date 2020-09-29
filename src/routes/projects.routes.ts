@@ -3,6 +3,7 @@ import ensureAuthenticated from '../middlewares/ensureaAuthenticated'
 import CreateProjectService from '../services/CreateProjectService'
 import IndexProjectService from '../services/IndexProjecService'
 import ShowProjectService from '../services/ShowProjectService'
+import UpdateProjectService from '../services/UpdateProjectService'
 
 const projectsRouter = Router()
 projectsRouter.use(ensureAuthenticated)
@@ -36,8 +37,19 @@ projectsRouter.post('/store', async (request, response) => {
 })
 
 projectsRouter.put('/update/:id', async (request, response) => {
+  const user_id = request.user.id
   const { id } = request.params
   const { name, navers } = request.body
+
+  const updateProjectService = new UpdateProjectService()
+  const project = await updateProjectService.execute({
+    user_id,
+    id,
+    name,
+    navers,
+  })
+
+  return response.status(200).json(project)
 })
 
 export default projectsRouter

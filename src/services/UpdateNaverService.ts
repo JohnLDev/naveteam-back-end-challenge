@@ -25,6 +25,11 @@ class UpdateNaverService {
   }: Request): Promise<Naver> {
     const naverRepository = getRepository(Naver)
     const projectsRepository = getRepository(Project)
+    const isUuid = validate(id)
+
+    if (!isUuid) {
+      throw new AppError('Please insert a valid indentifier(uuid)')
+    }
     const naver = await naverRepository.findOne({
       where: { id: id, user_id: user_id },
     })
