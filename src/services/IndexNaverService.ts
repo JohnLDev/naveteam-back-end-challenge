@@ -1,7 +1,7 @@
 import Naver from '../models/Naver'
 import { getRepository } from 'typeorm'
 import AppError from '../errors/AppError'
-
+import { parseISO, formatISO } from 'date-fns'
 interface Reequest {
   name: string
   admission_date: Date | string
@@ -20,7 +20,11 @@ class FilterNaverService {
       navers = navers.filter(naver => naver.name.includes(name))
     }
     if (admission_date !== undefined) {
-      navers = navers.filter(naver => naver.admission_date === admission_date)
+      const date = admission_date + 'T03:00:00.000Z'
+      const formatDate = formatISO(parseISO(date))
+      navers = navers.filter(
+        naver => formatISO(naver.admission_date) === formatDate,
+      )
     }
     if (job_role !== undefined) {
       navers = navers.filter(naver => naver.job_role === job_role)

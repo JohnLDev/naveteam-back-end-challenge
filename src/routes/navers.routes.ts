@@ -1,22 +1,32 @@
 import { Router } from 'express'
 
 import ensureAuthenticated from '../middlewares/ensureaAuthenticated'
-
 import CreateNaverService from '../services/CreateNaverService'
-import FilterNaverService from '../services/FilterNaverService'
+import FilterNaverService from '../services/IndexNaverService'
+import ShowNaverService from '../services/ShowNaverService'
 
 const naversRouter = Router()
 naversRouter.use(ensureAuthenticated)
 
+naversRouter.get('/show/:id', async (request, response) => {
+  const { id } = request.params as never
+
+  const showNaverService = new ShowNaverService()
+  const naver = await showNaverService.execute(id)
+
+  return response.status(200).json(naver)
+})
+
 naversRouter.get('/index', async (request, response) => {
   const { name, admission_date, job_role } = request.query as never
   const filterNaverService = new FilterNaverService()
+
   const navers = await filterNaverService.execute({
     name,
     admission_date,
     job_role,
   })
-  return response.send(navers)
+  return response.status(200).json(navers)
 })
 
 naversRouter.post('/store', async (request, response) => {
