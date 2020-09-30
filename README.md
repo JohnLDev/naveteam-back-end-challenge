@@ -72,6 +72,7 @@ Obs:
 
 ### Rota Login
 __Método:POST__
+
 URL:`http://localhost:3333/authentication/login`
 * Rota recebe através do body da request o email e senha de um usuário e caso o usuário esteja cadastrado ela devolve um token jwt.
 ``` 
@@ -102,6 +103,7 @@ Obs:
 
 ### Index
 __Método:GET__
+
 URL:`http://localhost:3333/navers/index`
 * Rota para a listagem de navers com ou sem filtros, ela pode ser filtrada atráves dos queryparams. Exemplo:`http://localhost:3333/navers/index?name=John&job_role=desenvolvedor&admission_date=2000-10-17`
 
@@ -138,6 +140,7 @@ Obs:
 
 ### Show
 __Método:GET__
+
 URL:`http://localhost:3333/navers/show/:id`
 * Rota recebe através do param id o identificador unico(uuid) de um naver e retorna o naver de forma detalhada.
 URL EXEMPLO:`http://localhost:3333/navers/show/a4c31cf3-be4b-4351-8de0-6a46a4553930`
@@ -176,6 +179,7 @@ Obs:
 
  ### Store
  __Método:POST__
+
 URL:`http://localhost:3333/navers/store`
 * Recebe atráves do body da request as informações necessárias para criação de um Naver.
 ``` 
@@ -216,6 +220,7 @@ response:
 
 ### Update
 __Método:PUT__
+
 URL:`http://localhost:3333/navers/update/:id`
 *Rota recebe através do param id o identificador unico(uuid) de um naver e através do body da request as informações que deseja alterar de um naver
 ``` 
@@ -264,6 +269,7 @@ response:
 
 ### Delete
 __Método:DELETE__
+
 URL:`http://localhost:3333/navers/delete/:id`
 *Rota recebe através do param id o identificador unico(uuid) de um naver e caso o naver exista e seja do usuário retornara Naver deleted
 ```
@@ -279,6 +285,7 @@ Obs:
 
 ### Index
 __Método:GET__
+
 URL:`http://localhost:3333/projects/index`
 * Rota para a listagem de projetos com ou sem filtros, ela pode ser filtrada por nome atráves dos queryparams. Exemplo:`http://localhost:3333/projects/index?name=Projeto%20Bom`
 
@@ -299,6 +306,7 @@ Obs:
 
 ### Show
 __Método:GET__
+
 URL:`http://localhost:3333/projects/show/:id`
 * Rota recebe através do param id o identificador unico(uuid) de um projeto e retorna o projeto de forma detalhada.
 URL EXEMPLO:`http://localhost:3333/projects/show/b48b90f0-434a-42a0-bb4a-b3c24efae7c9`
@@ -340,6 +348,7 @@ Obs:
 1. O usuário só pode detalhar seus próprios projetos
 ### Store
 __Método:POST__
+
 URL:`http://localhost:3333/projects/store`
 * Rota recebe através do body da request as informações necessárias para criação de um projeto e retorna o projeto criado.
 
@@ -379,6 +388,7 @@ response:
 
 ### Update
 __Método:PUT__
+
 URL:`http://localhost:3333/projects/update/:id`
 * Rota recebe através do param id o idenficiador unico(uuid) de um projeto e através do body da request as informações que serão atualizadas de projeto e retorna o projeto atualizado.
 
@@ -419,6 +429,7 @@ response:
 ```
 ### Delete
 __Método:DELETE__
+
 URL:`http://localhost:3333/projects/delete/:id`
 *Rota recebe através do param id o identificador unico(uuid) de um projeto e caso o projeto exista e seja do usuário retornara Project deleted
 ```
