@@ -30,7 +30,7 @@ o retorno será o nome do container caso o comando tenha sucesso;
 ## Boas práticas aplicadas não especificadas no teste
 * Utilização de uma lib para geração de id(uuid) como forma de aumentar a segurança;
 * Separation of concerns;
-* Adição das colunas created_at e updated_at nas tabelas do banco para manutenção das inserções e edições de informação; 
+* Adição das colunas created_at e updated_at nas tabelas do banco para manutenção das inserções e edições de informações; 
 * Utilização das configuração de acesso ao banco e secret jwt em variáveis ambiente para maior segurança;
 * Captura de exceções de forma global com mensagem e código de erros específicos;
 
