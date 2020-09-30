@@ -38,7 +38,7 @@ class CreateNaverService {
       ((birthdate as unknown) as string).length !== 10 ||
       ((admission_date as unknown) as string).length !== 10
     ) {
-      throw new AppError('Please insert a valid date yyyy-mm-dd new')
+      throw new AppError('Please insert a valid date yyyy-mm-dd')
     }
 
     if (projects) {
