@@ -26,6 +26,11 @@ o retorno será o nome do container caso o comando tenha sucesso;
 ## insomnia
 [![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=naveteam-back-end-challenge&uri=https://raw.githubusercontent.com/JohnLDev/naveteam-back-end-challenge/master/Insomnia.json?token=AQVFH2YHBLBM6N3AAKYUZAC7PTKWK)
 
+## Boas práticas aplicadas não especificadas no teste
+* Utilização de uma lib para geração de id(uuid) como método de segurança
+* Separation of concerns
+* Adição das colunas created_at e updated_at nas tabelas do banco para manutenção das inserções e edições de informação 
+* Utilização das configuração de acesso ao banco e secret jwt em variáveis ambiente para maior segurança
 
 # Funcionalidades
 
