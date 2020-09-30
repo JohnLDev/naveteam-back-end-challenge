@@ -32,6 +32,14 @@ class ProjectRepository extends Repository<Project> {
 
     return findProject
   }
+
+  public async findByUser(user_id: string): Promise<Project[]> {
+    const findProject = await this.find({
+      where: { user_id: user_id },
+    })
+
+    return findProject
+  }
 }
 
 export default ProjectRepository

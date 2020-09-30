@@ -17,7 +17,7 @@ class IndexProjectService {
       }
       return projects
     } else {
-      const projects = await projectRepository.find()
+      const projects = await projectRepository.findByUser(user_id)
       if (projects.length < 1) {
         throw new AppError('Projects not found', 404)
       }

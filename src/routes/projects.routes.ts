@@ -22,7 +22,7 @@ projectsRouter.get('/show/:id', async (request, response) => {
   const { id } = request.params
 
   const showProjectService = new ShowProjectService()
-  const project = await showProjectService.execute({ user_id, id })
+  const project = await showProjectService.execute({ id, user_id })
 
   return response.status(200).json(project)
 })

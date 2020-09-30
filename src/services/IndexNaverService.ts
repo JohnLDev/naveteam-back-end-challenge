@@ -2,6 +2,7 @@ import Naver from '../models/Naver'
 import { getCustomRepository } from 'typeorm'
 import AppError from '../errors/AppError'
 import NaverRepository from '../repositories/NaverRepository'
+import convertData from '../utils/Utils'
 
 interface Request {
   user_id: string
@@ -17,14 +18,6 @@ class FilterNaverService {
     admission_date,
     job_role,
   }: Request): Promise<Naver[]> {
-    function convertData(data: Date) {
-      const date = new Date(data)
-      const mnth = ('0' + (date.getMonth() + 1)).slice(-2)
-      const day = ('0' + (date.getDate() + 1)).slice(-2)
-
-      return [date.getFullYear(), mnth, day].join('-')
-    }
-
     const naverRepository = getCustomRepository(NaverRepository)
     let navers = await naverRepository.findByUser(user_id)
     if (name !== undefined) {
@@ -41,6 +34,16 @@ class FilterNaverService {
     if (navers.length < 1) {
       throw new AppError('Naver not found', 404)
     }
+    navers.map(
+      naver =>
+        (naver.admission_date = (convertData(
+          naver.admission_date,
+        ) as unknown) as Date),
+    )
+    navers.map(
+      naver =>
+        (naver.birthdate = (convertData(naver.birthdate) as unknown) as Date),
+    )
     return navers
   }
 }

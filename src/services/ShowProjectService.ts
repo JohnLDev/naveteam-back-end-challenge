@@ -3,6 +3,7 @@ import { validate } from 'uuid'
 import AppError from '../errors/AppError'
 import Project from '../models/Projects'
 import ProjectRepository from '../repositories/ProjectRepository'
+import convertData from '../utils/Utils'
 
 interface Request {
   id: string
@@ -21,6 +22,17 @@ class ShowProjectService {
     if (!project) {
       throw new AppError('Project not found', 404)
     }
+    project.navers.map(
+      naver =>
+        (naver.admission_date = (convertData(
+          naver.admission_date,
+        ) as unknown) as Date),
+    )
+
+    project.navers.map(
+      naver =>
+        (naver.birthdate = (convertData(naver.birthdate) as unknown) as Date),
+    )
     return project
   }
 }
