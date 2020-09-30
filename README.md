@@ -1,7 +1,7 @@
 # Naveteam-back-end-challenge
 
 Solução do desafio proposto pela Nave, para a vaga de desenvolvedor Back-end NodeJS.
-API construída com Node.JS, PostgreSQL, Express e TypeORM.
+API construída com Node.JS, PostgreSQL, Express, TypeScript e TypeORM.
 
 ## Conteúdo
 
