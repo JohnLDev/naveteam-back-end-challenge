@@ -22,7 +22,8 @@ o retorno será o nome do container caso o comando tenha sucesso;
 4. Com o container criado, o proximo passo é acessar o banco de dados através de um software de sua escolha(recomendo dbeaver) e criar uma database e guarde o nome pois ele será utilizado no .env
 5. Agora com o repositório clonado você deverá criar um arquivo .env na raiz do projeto utilizando como exemplo o arquivo .env-exemple;
 6. Instale as dependências utilizando o npm ou o yarn: `npm install` ou ` yarn`;
-7. Por ultimo, vamos rodar as migrações para deixar seu banco de dados no formato correto, digite no console `yarn typeorm migration:run` e todas as migrações devem ser rodadas e está tudo pronto para os testes.
+7. Vamos rodar as migrações para deixar seu banco de dados no formato correto, digite no console `yarn typeorm migration:run` ou `npm run dev:server` e todas as migrações devem ser rodadas e está tudo pronto para os testes.
+8. Por ultimo, é só iniciar a api digitando no console:`yarn dev:server` ou `npm run dev:server`
 
 ## insomnia
 [![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=naveteam-back-end-challenge&uri=https://raw.githubusercontent.com/JohnLDev/naveteam-back-end-challenge/master/Insomnia.json?token=AQVFH2YHBLBM6N3AAKYUZAC7PTKWK)
