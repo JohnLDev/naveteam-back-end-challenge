@@ -1,7 +1,7 @@
 import { getRepository } from 'typeorm'
 import { validate } from 'uuid'
 import AppError from '../errors/AppError'
-
+import { isValid } from 'date-fns'
 import Naver from '../models/Naver'
 import Project from '../models/Projects'
 
@@ -29,12 +29,18 @@ class CreateNaverService {
         'Please insert all necessary informations to create a Naver.',
       )
     }
+    const validateBirthdate = isValid(new Date(birthdate))
+    const validateAdmission_date = isValid(new Date(admission_date))
+
     if (
+      !validateBirthdate ||
+      !validateAdmission_date ||
       ((birthdate as unknown) as string).length !== 10 ||
       ((admission_date as unknown) as string).length !== 10
     ) {
-      throw new AppError('Please insert a valid date yyyy-mm-dd')
+      throw new AppError('Please insert a valid date yyyy-mm-dd new')
     }
+
     if (projects) {
       const projectError = projects.map(async project => {
         const projectIsUuid = validate(project)

@@ -4,6 +4,7 @@ import Naver from '../models/Naver'
 import Project from '../models/Projects'
 import { validate } from 'uuid'
 import NaverRepository from '../repositories/NaverRepository'
+import { isValid } from 'date-fns'
 
 interface Request {
   id: string
@@ -61,8 +62,13 @@ class UpdateNaverService {
       naver.name = name
     }
     if (birthdate) {
-      if (((birthdate as unknown) as string).length !== 10) {
-        throw new AppError('Please insert a valid date yyyy-mm-dd')
+      const validateBirthdate = isValid(new Date(birthdate))
+
+      if (
+        !validateBirthdate ||
+        ((birthdate as unknown) as string).length !== 10
+      ) {
+        throw new AppError('Please insert a valid Birthdate yyyy-mm-dd new')
       }
       naver.birthdate = birthdate
     }
@@ -70,8 +76,13 @@ class UpdateNaverService {
       naver.job_role = job_role
     }
     if (admission_date) {
-      if (((admission_date as unknown) as string).length !== 10) {
-        throw new AppError('Please insert a valid date yyyy-mm-dd')
+      const validateAdmission_date = isValid(new Date(admission_date))
+
+      if (
+        !validateAdmission_date ||
+        ((admission_date as unknown) as string).length !== 10
+      ) {
+        throw new AppError('Please insert a valid Admission_date yyyy-mm-dd')
       }
       naver.admission_date = admission_date
     }
