@@ -1,11 +1,12 @@
 import { compare } from 'bcryptjs'
-import { getRepository } from 'typeorm'
+import { getCustomRepository } from 'typeorm'
 import User from '../models/User'
 import { sign } from 'jsonwebtoken'
 import authConfig from '../config/auth'
 import AppError from '../errors/AppError'
 
 import Dotenv from 'dotenv'
+import UserRepository from '../repositories/UserRepository'
 Dotenv.config()
 
 interface Request {
@@ -19,8 +20,11 @@ interface Response {
 
 class AuthenticateUserService {
   public async execute({ email, password }: Request): Promise<Response> {
-    const userRepository = getRepository(User)
-    const user = await userRepository.findOne({ where: { email: email } })
+    if (!email || !password) {
+      throw new AppError('Please insert email and password to login')
+    }
+    const userRepository = getCustomRepository(UserRepository)
+    const user = await userRepository.findByEmail(email)
     if (!user) {
       throw new AppError('Incorrect email/password combination', 401)
     }
