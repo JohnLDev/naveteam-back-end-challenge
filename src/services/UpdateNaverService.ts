@@ -1,8 +1,9 @@
-import { getRepository } from 'typeorm'
+import { getRepository, getCustomRepository } from 'typeorm'
 import AppError from '../errors/AppError'
 import Naver from '../models/Naver'
 import Project from '../models/Projects'
 import { validate } from 'uuid'
+import NaverRepository from '../repositories/NaverRepository'
 
 interface Request {
   id: string
@@ -23,16 +24,14 @@ class UpdateNaverService {
     job_role,
     projects,
   }: Request): Promise<Naver> {
-    const naverRepository = getRepository(Naver)
+    const naverRepository = getCustomRepository(NaverRepository)
     const projectsRepository = getRepository(Project)
     const isUuid = validate(id)
 
     if (!isUuid) {
       throw new AppError('Please insert a valid indentifier(uuid)')
     }
-    const naver = await naverRepository.findOne({
-      where: { id: id, user_id: user_id },
-    })
+    const naver = await naverRepository.findOneById(id, user_id)
     if (!naver) {
       throw new AppError('Naver not found', 404)
     }
@@ -62,12 +61,18 @@ class UpdateNaverService {
       naver.name = name
     }
     if (birthdate) {
+      if (((birthdate as unknown) as string).length !== 10) {
+        throw new AppError('Please insert a valid date yyyy-mm-dd')
+      }
       naver.birthdate = birthdate
     }
     if (job_role) {
       naver.job_role = job_role
     }
     if (admission_date) {
+      if (((admission_date as unknown) as string).length !== 10) {
+        throw new AppError('Please insert a valid date yyyy-mm-dd')
+      }
       naver.admission_date = admission_date
     }
     await naverRepository.save(naver)

@@ -29,6 +29,12 @@ class CreateNaverService {
         'Please insert all necessary informations to create a Naver.',
       )
     }
+    if (
+      ((birthdate as unknown) as string).length !== 10 ||
+      ((admission_date as unknown) as string).length !== 10
+    ) {
+      throw new AppError('Please insert a valid date yyyy-mm-dd')
+    }
     if (projects) {
       const projectError = projects.map(async project => {
         const projectIsUuid = validate(project)
