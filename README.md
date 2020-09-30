@@ -275,7 +275,7 @@ response:
 Obs: 
 1. O usuário só pode deletar seus próprios navers 
 
-## Projecs
+## Projects
 
 ### Index
 __Método:GET__
