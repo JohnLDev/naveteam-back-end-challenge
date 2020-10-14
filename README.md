@@ -449,4 +449,4 @@ Em quesito de código não consigo pensar em nenhuma dificuldade pontual, pois j
 
 # Considerações finais
 Foi simplemente incrível ter a oportunidade de realizar um projeto real, de uma empresa que gosto e que colocou a prova diversos conhecimentos novos e antigos que possuia. Sinto que o teste agregou muito sobre as etapas de desenvolvimento de um projeto e fase de testes. Durante o teste me perdi diversas vezes no tempo, pois foi um projeto incrivelmente satisfatório de realizar.
-Por fim gostária de agradecer a oportunidade e espero que gostem do teste.
+Por fim gostaria de agradecer a oportunidade e espero que gostem do teste.

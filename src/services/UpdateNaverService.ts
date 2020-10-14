@@ -68,7 +68,7 @@ class UpdateNaverService {
         !validateBirthdate ||
         ((birthdate as unknown) as string).length !== 10
       ) {
-        throw new AppError('Please insert a valid Birthdate yyyy-mm-dd new')
+        throw new AppError('Please insert a valid Birthdate yyyy-mm-dd')
       }
       naver.birthdate = birthdate
     }
