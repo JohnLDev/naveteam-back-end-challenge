@@ -12,10 +12,10 @@ API construída com Node.JS, PostgreSQL, Express, TypeScript e TypeORM.
 1. Instale o node na versão LTS;
 2. Instale o postgresSQL localmente(Não recomendado) ou através do docker(Recomendado);
   *  Caso opte por instalar o docker este é um tutorial de instalação para todos os sistemas operacionais;
-  
-  [![Docker](https://www.ortussolutions.com/__media/logos/docker.png)](https://www.notion.so/Instala-o-do-Docker-8230846ae2c547b2988f2aca91fc1edf) 
-  
-  
+
+  [![Docker](https://www.ortussolutions.com/__media/logos/docker.png)](https://www.notion.so/Instala-o-do-Docker-8230846ae2c547b2988f2aca91fc1edf)
+
+
 3. Com o docker instalado será necessário criar um container para isso devemos digitar no terminal:
 `docker run --name nome_do_container -e POSTGRES_PASSWORD=senha_que_será_usada_no_.env -p 5432:5432  -d postgres`
 o retorno será o nome do container caso o comando tenha sucesso;
@@ -32,7 +32,8 @@ o retorno será o nome do container caso o comando tenha sucesso;
 ## Boas práticas aplicadas não especificadas no teste
 * Utilização de uma lib para geração de id(uuid) como forma de aumentar a segurança;
 * Separation of concerns;
-* Adição das colunas created_at e updated_at nas tabelas do banco para manutenção das inserções e edições de informações; 
+* Arquitetura MVC;
+* Adição das colunas created_at e updated_at nas tabelas do banco para manutenção das inserções e edições de informações;
 * Utilização das configuração de acesso ao banco e secret jwt em variáveis ambiente para maior segurança;
 * Captura de exceções de forma global com mensagem e código de erros específicos;
 
@@ -49,7 +50,7 @@ __Método:POST__
 URL:`http://localhost:3333/authentication/signup`
 * Rota recebe através do body da request nome(opcional), email(obrigatório) e senha(obrigatório) e cria um registro no banco de dados com o usuario.
 
-``` 
+```
 body da request:
 {
 	"name":"User",
@@ -70,7 +71,7 @@ response:
   }
 }
 ```
-Obs: 
+Obs:
 1. senha foi ocultada da resposta como forma de aumentar a segurança do usuário.
 
 ### Rota Login
@@ -78,7 +79,7 @@ __Método:POST__
 
 URL:`http://localhost:3333/authentication/login`
 * Rota recebe através do body da request o email e senha de um usuário e caso o usuário esteja cadastrado ela devolve um token jwt.
-``` 
+```
 body da request:
 {
 	"email":"exemple@gmail.com",
@@ -98,7 +99,7 @@ response:
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MDE0NjkxMDEsImV4cCI6MTYwMTQ3NjMwMSwic3ViIjoiZDQ0YTA5MTYtNWRmZS00MmI3LWI4MjQtZDVmZmZiMTBiNDliIn0.dI94C4EdMxoxo8gY9gC60MHzr3OoLMOVbmrWOo3AjU8"
 }
 ```
-Obs: 
+Obs:
 1. A senha foi ocultada da resposta como forma de aumentar a segurança do usuário.
 2. Nesse momento voce terá que alterar o token nas variáveis de ambiente do insomnia(atalho: ctrl + e) para obter acesso às proximas rotas.
 
@@ -137,7 +138,7 @@ response:
   }
 ]
 ```
-Obs: 
+Obs:
 1. O parametro name da query foi feito com includes para facilitar a busca por nomes.
 2. O usuário só pode listar seus próprios Navers.
 
@@ -177,7 +178,7 @@ response:
 }
 
 ```
-Obs: 
+Obs:
 1. O usuário só pode detalhar seus próprios Navers
 
  ### Store
@@ -185,7 +186,7 @@ Obs:
 
 URL:`http://localhost:3333/navers/store`
 * Recebe atráves do body da request as informações necessárias para criação de um Naver.
-``` 
+```
 body da request:
 {
         "name": "John Lenon",
@@ -195,7 +196,7 @@ body da request:
         "projects": ["16707990-3241-4ed1-a8bc-5b0314535ddb"]
  }
 ```
-Obs: 
+Obs:
 1. O array de projects também pode ser enviado vazio para o naver não ser vinculado a um projeto
 ```
 response:
@@ -226,7 +227,7 @@ __Método:PUT__
 
 URL:`http://localhost:3333/navers/update/:id`
 *Rota recebe através do param id o identificador unico(uuid) de um naver e através do body da request as informações que deseja alterar de um naver
-``` 
+```
 body da request:
 {
         "name": "John Lenon",
@@ -234,10 +235,10 @@ body da request:
         "admission_date": "2020-09-19",
         "job_role": "Back-end brabo",
         "projects": ["5dae36ab-35d8-4217-8e43-e6d564f288c4","27179da2-411a-4c22-90bc-d97420b3b3ba"]
-        
+
 }
 ```
-Obs: 
+Obs:
 1. Caso não queria atualizar todas as informações de um naver elas podem ser envidadas iguais as atuais ou não serem enviadas.
 ```
 response:
@@ -267,7 +268,7 @@ response:
     }
   ]
 }
- 
+
 ```
 
 ### Delete
@@ -281,8 +282,8 @@ response:
   "message": "Naver Deleted"
 }
 ```
-Obs: 
-1. O usuário só pode deletar seus próprios navers 
+Obs:
+1. O usuário só pode deletar seus próprios navers
 
 ## Projects
 
@@ -304,8 +305,8 @@ response:
   }
 ]
 ```
-Obs: 
-1. O usuário só pode listar seus próprios projetos 
+Obs:
+1. O usuário só pode listar seus próprios projetos
 
 ### Show
 __Método:GET__
@@ -345,9 +346,9 @@ response:
       "updated_at": "2020-09-30T16:07:14.038Z"
     }
   ]
-} 
+}
 ```
-Obs: 
+Obs:
 1. O usuário só pode detalhar seus próprios projetos
 ### Store
 __Método:POST__
@@ -355,14 +356,14 @@ __Método:POST__
 URL:`http://localhost:3333/projects/store`
 * Rota recebe através do body da request as informações necessárias para criação de um projeto e retorna o projeto criado.
 
-``` 
+```
 body da request:
 {
         "name": "Projeto Bom",
         "navers": ["c25577d5-13ba-461d-b59a-d9100eb772e3"]
 }
 ```
-Obs: 
+Obs:
 1. O array de navers também pode ser enviado vazio para o projeto
  não possuir nenhum naver vinculado a ele.
 ```
@@ -395,7 +396,7 @@ __Método:PUT__
 URL:`http://localhost:3333/projects/update/:id`
 * Rota recebe através do param id o idenficiador unico(uuid) de um projeto e através do body da request as informações que serão atualizadas de projeto e retorna o projeto atualizado.
 
-``` 
+```
 body da request:
 {
         "name": "Projeto Muito Bom",
@@ -403,7 +404,7 @@ body da request:
 }
 
 ```
-Obs: 
+Obs:
 1. O array de navers também pode ser enviado vazio para o projeto
  não possuir nenhum naver vinculado a ele.
 2. caso não queria atualizar todas as informações de um naver elas podem ser envidadas iguais as atuais ou não serem enviadas.
@@ -441,8 +442,8 @@ response:
   "message": "Project Deleted"
 }
 ```
-Obs: 
-1. O usuário só pode deletar seus próprios projetos 
+Obs:
+1. O usuário só pode deletar seus próprios projetos
 
 # Dificuldades encontradas
 Em quesito de código não consigo pensar em nenhuma dificuldade pontual, pois já estava habituado as tecnologias e estratégias empregadas.
