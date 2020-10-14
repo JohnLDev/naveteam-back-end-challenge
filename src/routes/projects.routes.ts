@@ -1,65 +1,18 @@
 import { Router } from 'express'
+import ProjectsController from '../controllers/ProjectsController'
 import ensureAuthenticated from '../middlewares/ensureaAuthenticated'
-import CreateProjectService from '../services/CreateProjectService'
-import DeleteProjectService from '../services/DeleteProjectService'
-import IndexProjectService from '../services/IndexProjecService'
-import ShowProjectService from '../services/ShowProjectService'
-import UpdateProjectService from '../services/UpdateProjectService'
 
 const projectsRouter = Router()
 projectsRouter.use(ensureAuthenticated)
 
-projectsRouter.get('/index', async (request, response) => {
-  const user_id = request.user.id
-  const { name } = request.query as never
-  const indexProjectService = new IndexProjectService()
-  const projects = await indexProjectService.execute({ name, user_id })
-  return response.status(200).json(projects)
-})
+projectsRouter.get('/index', ProjectsController.index)
 
-projectsRouter.get('/show/:id', async (request, response) => {
-  const user_id = request.user.id
-  const { id } = request.params
+projectsRouter.get('/show/:id', ProjectsController.show)
 
-  const showProjectService = new ShowProjectService()
-  const project = await showProjectService.execute({ id, user_id })
+projectsRouter.post('/store', ProjectsController.store)
 
-  return response.status(200).json(project)
-})
+projectsRouter.put('/update/:id', ProjectsController.update)
 
-projectsRouter.post('/store', async (request, response) => {
-  const user_id = request.user.id
-  const { name, navers } = request.body
-
-  const createProjectService = new CreateProjectService()
-  const project = await createProjectService.execute({ user_id, name, navers })
-
-  return response.status(201).json(project)
-})
-
-projectsRouter.put('/update/:id', async (request, response) => {
-  const user_id = request.user.id
-  const { id } = request.params
-  const { name, navers } = request.body
-
-  const updateProjectService = new UpdateProjectService()
-  const project = await updateProjectService.execute({
-    user_id,
-    id,
-    name,
-    navers,
-  })
-
-  return response.status(200).json(project)
-})
-
-projectsRouter.delete('/delete/:id', async (request, response) => {
-  const user_id = request.user.id
-  const { id } = request.params
-
-  const deleteProjectService = new DeleteProjectService()
-  await deleteProjectService.execute({ id, user_id })
-  return response.status(200).json({ message: 'Project Deleted' })
-})
+projectsRouter.delete('/delete/:id', ProjectsController.delete)
 
 export default projectsRouter
