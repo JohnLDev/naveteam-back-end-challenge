@@ -1,9 +1,9 @@
 import { getCustomRepository } from 'typeorm'
 import { validate } from 'uuid'
-import AppError from '../errors/AppError'
-import Project from '../models/Projects'
-import ProjectRepository from '../repositories/ProjectRepository'
-import convertData from '../utils/Utils'
+import AppError from '../../errors/AppError'
+import Project from '../../models/Projects'
+import ProjectRepository from '../../repositories/ProjectRepository'
+import convertData from '../../utils/Utils'
 
 interface Request {
   id: string
@@ -37,4 +37,4 @@ class ShowProjectService {
   }
 }
 
-export default ShowProjectService
+export default new ShowProjectService()

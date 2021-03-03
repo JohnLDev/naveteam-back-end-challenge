@@ -1,7 +1,7 @@
 import { getCustomRepository } from 'typeorm'
 import { validate } from 'uuid'
-import AppError from '../errors/AppError'
-import NaverRepository from '../repositories/NaverRepository'
+import AppError from '../../errors/AppError'
+import NaverRepository from '../../repositories/NaverRepository'
 
 interface Request {
   id: string
@@ -24,4 +24,4 @@ class DeleteNaverService {
   }
 }
 
-export default DeleteNaverService
+export default new DeleteNaverService()

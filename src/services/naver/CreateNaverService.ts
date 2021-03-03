@@ -1,9 +1,9 @@
 import { getRepository } from 'typeorm'
 import { validate } from 'uuid'
-import AppError from '../errors/AppError'
-import { isValid } from 'date-fns'
-import Naver from '../models/Naver'
-import Project from '../models/Projects'
+import AppError from '../../errors/AppError'
+import { isValid, isAfter } from 'date-fns'
+import Naver from '../../models/Naver'
+import Project from '../../models/Projects'
 
 interface Request {
   id: string
@@ -39,6 +39,17 @@ class CreateNaverService {
       ((admission_date as unknown) as string).length !== 10
     ) {
       throw new AppError('Please insert a valid date yyyy-mm-dd')
+    }
+    if (!isAfter(new Date(), new Date(birthdate))) {
+      throw new AppError('Please insert a valid birthdate')
+    }
+
+    if (!isAfter(new Date(birthdate), new Date(admission_date))) {
+      throw new AppError('You can not be hired before birth')
+    }
+
+    if (!isAfter(new Date(), new Date(birthdate))) {
+      throw new AppError('Please insert a valid birthdate')
     }
 
     if (projects) {
@@ -76,4 +87,4 @@ class CreateNaverService {
   }
 }
 
-export default CreateNaverService
+export default new CreateNaverService()

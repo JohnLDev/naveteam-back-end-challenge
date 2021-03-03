@@ -1,8 +1,8 @@
 import { getCustomRepository } from 'typeorm'
 import { validate } from 'uuid'
-import AppError from '../errors/AppError'
+import AppError from '../../errors/AppError'
 
-import ProjectRepository from '../repositories/ProjectRepository'
+import ProjectRepository from '../../repositories/ProjectRepository'
 
 interface Request {
   id: string
@@ -25,4 +25,4 @@ class DeleteProjectService {
   }
 }
 
-export default DeleteProjectService
+export default new DeleteProjectService()

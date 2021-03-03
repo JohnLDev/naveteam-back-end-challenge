@@ -1,9 +1,9 @@
 import { getRepository } from 'typeorm'
 import { validate } from 'uuid'
 
-import Naver from '../models/Naver'
-import Project from '../models/Projects'
-import AppError from '../errors/AppError'
+import Naver from '../../models/Naver'
+import Project from '../../models/Projects'
+import AppError from '../../errors/AppError'
 
 interface Request {
   user_id: string
@@ -50,4 +50,4 @@ class CreateProjectService {
   }
 }
 
-export default CreateProjectService
+export default new CreateProjectService()

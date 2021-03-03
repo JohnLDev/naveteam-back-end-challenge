@@ -1,9 +1,9 @@
-import Naver from '../models/Naver'
+import Naver from '../../models/Naver'
 import { validate } from 'uuid'
-import AppError from '../errors/AppError'
+import AppError from '../../errors/AppError'
 import { getCustomRepository } from 'typeorm'
-import NaverRepository from '../repositories/NaverRepository'
-import convertData from '../utils/Utils'
+import NaverRepository from '../../repositories/NaverRepository'
+import convertData from '../../utils/Utils'
 
 class ShowNaverService {
   public async execute(id: string, user_id: string): Promise<Naver> {
@@ -24,4 +24,4 @@ class ShowNaverService {
   }
 }
 
-export default ShowNaverService
+export default new ShowNaverService()

@@ -1,7 +1,7 @@
 import { getRepository } from 'typeorm'
-import User from '../models/User'
+import User from '../../models/User'
 import { hash } from 'bcryptjs'
-import AppError from '../errors/AppError'
+import AppError from '../../errors/AppError'
 import { validate } from 'class-validator'
 
 interface Request {
@@ -42,4 +42,4 @@ class CreateUserService {
   }
 }
 
-export default CreateUserService
+export default new CreateUserService()

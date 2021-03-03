@@ -1,10 +1,10 @@
 import { getCustomRepository } from 'typeorm'
 import { validate } from 'uuid'
 
-import AppError from '../errors/AppError'
-import Project from '../models/Projects'
-import NaverRepository from '../repositories/NaverRepository'
-import ProjectRepository from '../repositories/ProjectRepository'
+import AppError from '../../errors/AppError'
+import Project from '../../models/Projects'
+import NaverRepository from '../../repositories/NaverRepository'
+import ProjectRepository from '../../repositories/ProjectRepository'
 
 interface Request {
   name: string
@@ -62,4 +62,4 @@ class UpdateProjectService {
   }
 }
 
-export default UpdateProjectService
+export default new UpdateProjectService()
