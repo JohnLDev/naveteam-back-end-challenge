@@ -1,8 +1,8 @@
-import Naver from '../models/Naver'
+import Naver from '../../models/Naver'
 import { getCustomRepository } from 'typeorm'
-import AppError from '../errors/AppError'
-import NaverRepository from '../repositories/NaverRepository'
-import convertData from '../utils/Utils'
+import AppError from '../../errors/AppError'
+import NaverRepository from '../../repositories/NaverRepository'
+import convertData from '../../utils/Utils'
 
 interface Request {
   user_id: string
@@ -21,7 +21,9 @@ class FilterNaverService {
     const naverRepository = getCustomRepository(NaverRepository)
     let navers = await naverRepository.findByUser(user_id)
     if (name !== undefined) {
-      navers = navers.filter(naver => naver.name.includes(name))
+      navers = navers.filter(naver =>
+        naver.name.toLocaleLowerCase().includes(name.toLocaleLowerCase()),
+      )
     }
     if (admission_date !== undefined) {
       navers = navers.filter(
@@ -29,7 +31,11 @@ class FilterNaverService {
       )
     }
     if (job_role !== undefined) {
-      navers = navers.filter(naver => naver.job_role === job_role)
+      navers = navers.filter(naver =>
+        naver.job_role
+          .toLocaleLowerCase()
+          .includes(job_role.toLocaleLowerCase()),
+      )
     }
     if (navers.length < 1) {
       throw new AppError('Naver not found', 404)
@@ -47,4 +53,4 @@ class FilterNaverService {
     return navers
   }
 }
-export default FilterNaverService
+export default new FilterNaverService()

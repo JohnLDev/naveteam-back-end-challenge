@@ -1,17 +1,16 @@
 import { Request, Response } from 'express'
-import CreateProjectService from '../services/CreateProjectService'
-import DeleteProjectService from '../services/DeleteProjectService'
-import IndexProjectService from '../services/IndexProjecService'
-import ShowProjectService from '../services/ShowProjectService'
-import UpdateProjectService from '../services/UpdateProjectService'
+import CreateProjectService from '../services/project/CreateProjectService'
+import DeleteProjectService from '../services/project/DeleteProjectService'
+import IndexProjectService from '../services/project/IndexProjectService'
+import ShowProjectService from '../services/project/ShowProjectService'
+import UpdateProjectService from '../services/project/UpdateProjectService'
 import ProjectView from '../views/ProjectView'
 
 export default {
   async index(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id
     const { name } = request.query as never
-    const indexProjectService = new IndexProjectService()
-    const projects = await indexProjectService.execute({ name, user_id })
+    const projects = await IndexProjectService.execute({ name, user_id })
     return response.status(200).json(ProjectView.renderMany(projects))
   },
 
@@ -19,8 +18,7 @@ export default {
     const user_id = request.user.id
     const { id } = request.params
 
-    const showProjectService = new ShowProjectService()
-    const project = await showProjectService.execute({ id, user_id })
+    const project = await ShowProjectService.execute({ id, user_id })
 
     return response.status(200).json(ProjectView.render(project))
   },
@@ -29,8 +27,7 @@ export default {
     const user_id = request.user.id
     const { name, navers } = request.body
 
-    const createProjectService = new CreateProjectService()
-    const project = await createProjectService.execute({
+    const project = await CreateProjectService.execute({
       user_id,
       name,
       navers,
@@ -44,8 +41,7 @@ export default {
     const { id } = request.params
     const { name, navers } = request.body
 
-    const updateProjectService = new UpdateProjectService()
-    const project = await updateProjectService.execute({
+    const project = await UpdateProjectService.execute({
       user_id,
       id,
       name,
@@ -59,8 +55,7 @@ export default {
     const user_id = request.user.id
     const { id } = request.params
 
-    const deleteProjectService = new DeleteProjectService()
-    await deleteProjectService.execute({ id, user_id })
+    await DeleteProjectService.execute({ id, user_id })
     return response.status(200).json({ message: 'Project Deleted' })
   },
 }

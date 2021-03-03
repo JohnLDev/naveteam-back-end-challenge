@@ -1,14 +1,13 @@
 import { Request, Response } from 'express'
-import AuthenticateUserService from '../services/AuthenticateUserService'
+import AuthenticateUserService from '../services/auth/AuthenticateUserService'
 
-import CreateUserService from '../services/CreateUserService'
+import CreateUserService from '../services/auth/CreateUserService'
 import UserView from '../views/UserView'
 
 export default {
   async signup(request: Request, response: Response): Promise<Response> {
     const { name, email, password } = request.body
-    const createUserService = new CreateUserService()
-    const user = await createUserService.execute({
+    const user = await CreateUserService.execute({
       name,
       email,
       password,
@@ -17,8 +16,8 @@ export default {
   },
   async login(request: Request, response: Response): Promise<Response> {
     const { email, password } = request.body
-    const authenticateUserService = new AuthenticateUserService()
-    const { user, token } = await authenticateUserService.execute({
+
+    const { user, token } = await AuthenticateUserService.execute({
       email,
       password,
     })

@@ -1,12 +1,12 @@
 import { compare } from 'bcryptjs'
 import { getCustomRepository } from 'typeorm'
-import User from '../models/User'
+import User from '../../models/User'
 import { sign } from 'jsonwebtoken'
-import authConfig from '../config/auth'
-import AppError from '../errors/AppError'
+import authConfig from '../../config/auth'
+import AppError from '../../errors/AppError'
 
 import Dotenv from 'dotenv'
-import UserRepository from '../repositories/UserRepository'
+import UserRepository from '../../repositories/UserRepository'
 Dotenv.config()
 
 interface Request {
@@ -44,4 +44,4 @@ class AuthenticateUserService {
     return { user, token }
   }
 }
-export default AuthenticateUserService
+export default new AuthenticateUserService()

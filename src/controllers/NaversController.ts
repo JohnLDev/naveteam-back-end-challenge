@@ -1,19 +1,18 @@
 import { Request, Response } from 'express'
-import FilterNaverService from '../services/IndexNaverService'
-import CreateNaverService from '../services/CreateNaverService'
-import DeleteNaverService from '../services/DeleteNaverService'
+import FilterNaverService from '../services/naver/IndexNaverService'
+import CreateNaverService from '../services/naver/CreateNaverService'
+import DeleteNaverService from '../services/naver/DeleteNaverService'
 
-import ShowNaverService from '../services/ShowNaverService'
-import UpdateNaverService from '../services/UpdateNaverService'
+import ShowNaverService from '../services/naver/ShowNaverService'
+import UpdateNaverService from '../services/naver/UpdateNaverService'
 import NaverView from '../views/NaverView'
 
 export default {
   async index(request: Request, response: Response): Promise<Response> {
     const { name, admission_date, job_role } = request.query as never
     const user_id = request.user.id
-    const filterNaverService = new FilterNaverService()
 
-    const navers = await filterNaverService.execute({
+    const navers = await FilterNaverService.execute({
       user_id,
       name,
       admission_date,
@@ -25,16 +24,14 @@ export default {
     const { id } = request.params as never
     const user_id = request.user.id
 
-    const showNaverService = new ShowNaverService()
-    const naver = await showNaverService.execute(id, user_id)
+    const naver = await ShowNaverService.execute(id, user_id)
 
     return response.status(200).json(NaverView.render(naver))
   },
   async store(request: Request, response: Response): Promise<Response> {
     const id = request.user.id
     const { name, birthdate, admission_date, job_role, projects } = request.body
-    const createNaverService = new CreateNaverService()
-    const naver = await createNaverService.execute({
+    const naver = await CreateNaverService.execute({
       id,
       name,
       birthdate,
@@ -48,8 +45,8 @@ export default {
     const { id } = request.params
     const user_id = request.user.id
     const { name, birthdate, admission_date, job_role, projects } = request.body
-    const updateNaverService = new UpdateNaverService()
-    const naver = await updateNaverService.execute({
+
+    const naver = await UpdateNaverService.execute({
       id,
       user_id,
       name,
@@ -63,8 +60,7 @@ export default {
   async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params
     const user_id = request.user.id
-    const deleteNaverService = new DeleteNaverService()
-    await deleteNaverService.execute({ id, user_id })
+    await DeleteNaverService.execute({ id, user_id })
     return response.status(200).json({ message: 'Naver Deleted' })
   },
 }

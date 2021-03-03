@@ -1,9 +1,9 @@
 import { getRepository, getCustomRepository } from 'typeorm'
-import AppError from '../errors/AppError'
-import Naver from '../models/Naver'
-import Project from '../models/Projects'
+import AppError from '../../errors/AppError'
+import Naver from '../../models/Naver'
+import Project from '../../models/Projects'
 import { validate } from 'uuid'
-import NaverRepository from '../repositories/NaverRepository'
+import NaverRepository from '../../repositories/NaverRepository'
 import { isValid } from 'date-fns'
 
 interface Request {
@@ -91,4 +91,4 @@ class UpdateNaverService {
   }
 }
 
-export default UpdateNaverService
+export default new UpdateNaverService()
